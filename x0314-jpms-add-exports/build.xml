@@ -15,7 +15,9 @@
 	<target name="build-appl" depends="build-mod">
 		<build name="appl">
 			<paths>
+				<!-- not really required since we don't compile against symbols from package `jj.mod.beta` -->
 				<compilerarg value="--add-exports=jj.mod/jj.mod.beta=jj.appl"/>
+				
 				<modulepath location="${shared}/build/util.jar" />
 				<modulepath location="${basedir}/build/mod.jar" />
 			</paths>
@@ -24,8 +26,7 @@
 
 	<target name="run" depends="build-appl">
 		<java module="jj.appl" classname="jj.appl.Application" fork="true">
-			<jvmarg value="--add-exports" />
-			<jvmarg value="jj.mod/jj.mod.beta=jj.appl" />
+			<jvmarg value="--add-exports=jj.mod/jj.mod.beta=jj.appl" />
 			<modulepath location="${shared}/build/util.jar" />
 			<modulepath location="${basedir}/build/appl.jar" />
 			<modulepath location="${basedir}/build/mod.jar" />

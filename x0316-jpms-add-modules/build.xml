@@ -26,8 +26,7 @@
 			<modulepath location="${shared}/build/util.jar" />
 			<modulepath location="${basedir}/build/mod.jar" />
 			<modulepath location="${basedir}/build/appl.jar" />
-			<jvmarg value="--add-modules" />
-			<jvmarg value="jj.mod" />
+			<jvmarg value="--add-modules=jj.mod" />
 		</java>
 	</target>
 
