@@ -19,7 +19,7 @@ public class Log {
 					.walk(s -> s.limit(2).collect(Collectors.toList()));
 			System.out.println(" ");
 			System.out.println(line);
-			System.out.println("| " + stack.get(1).getMethodName());
+			System.out.println("| " + getSimpleClassName(stack.get(1).getClassName()) + "." + stack.get(1).getMethodName());
 			System.out.println(line);
 			start();
 		}
@@ -78,4 +78,11 @@ public class Log {
 		return name;
 	}
 
+	/**
+	 * Drops the package name and returns just the name of the class (a.k.a. the "simple name")
+	 */
+	private static String getSimpleClassName(String className) {
+		int dotIndex = className.lastIndexOf(".");
+		return className.substring(dotIndex + 1);
+	}
 }
