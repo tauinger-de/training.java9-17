@@ -2,6 +2,7 @@ package jj.appl;
 
 import java.lang.annotation.Annotation;
 import java.lang.module.ModuleDescriptor;
+import java.lang.module.ModuleDescriptor.Requires;
 import java.util.Set;
 
 import jj.mod.pub.Foo;
@@ -26,14 +27,17 @@ public class Application {
 		System.out.println(m1 == m2);
 		System.out.println(m1.getName());
 		System.out.println(m1.isNamed());
+		System.out.println(m1.getPackages());
+		System.out.println(m1.getAnnotations());
+		System.out.println(m1.getDescriptor());
 	}
-	
+
 	static void demoGetModulePrimitives() {
 		Log.logMethodCall();
 		System.out.println(int.class.getModule().getName());
 		System.out.println(void.class.getModule().getName());
 	}
-	
+
 	static void demoGetModuleSystemClasses() {
 		Log.logMethodCall();
 		System.out.println(String.class.getModule().getName());
@@ -46,26 +50,28 @@ public class Application {
 		System.out.println(int[].class.getModule().getName());
 		System.out.println(Foo[].class.getModule().getName());
 	}
-		
+
 	static void demoGetAnnotations() {
 		Log.logMethodCall();
 		final Annotation[] annotations = Foo[].class.getModule().getAnnotations();
-		for(final Annotation annotation : annotations)
+		for (final Annotation annotation : annotations)
 			System.out.println(annotation);
 	}
+
 	static void demoCanRead() {
 		Log.logMethodCall();
 		final Module mod = Foo.class.getModule();
 		final Module appl = Application.class.getModule();
 		System.out.println(appl.canRead(mod));
 		System.out.println(mod.canRead(appl));
-	}	
+	}
+
 	static void demoGetPackages() {
 		Log.logMethodCall();
 		final Module mod = Foo.class.getModule();
 		final Module appl = Application.class.getModule();
 		final Set<String> packages = mod.getPackages();
-		packages.forEach(p -> { 
+		packages.forEach(p -> {
 			System.out.println(p);
 			System.out.println("\t" + mod.isExported(p));
 			System.out.println("\t" + mod.isExported(p, appl));
@@ -73,16 +79,23 @@ public class Application {
 			System.out.println("\t" + mod.isOpen(p, appl));
 		});
 	}
+
 	static void demoGetDescriptor() {
 		Log.logMethodCall();
 		final ModuleDescriptor descr = Foo.class.getModule().getDescriptor();
 		System.out.println(descr.name());
+
 		System.out.println("exports:");
 		final Set<ModuleDescriptor.Exports> exports = descr.exports();
 		exports.forEach(export -> System.out.println("\t" + export.source() + " => " +
 				export.targets()));
+
 		System.out.println("opens:");
 		final Set<ModuleDescriptor.Opens> opens = descr.opens();
 		opens.forEach(open -> System.out.println("\t" + open.source() + " => " + open.targets()));
+
+		System.out.println("requires:");
+		Set<Requires> requires = descr.requires();
+		requires.forEach(require -> System.out.println("\t" + require.name()));
 	}
 }
