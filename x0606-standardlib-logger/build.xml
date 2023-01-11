@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE project>
+
+<project default="run">
+
+	<import file="../shared/build.xml" />
+
+	<property name="shared" value="${basedir}/../shared" />
+
+	<target name="build-mod">
+		<build name="mod">
+			<paths>
+			</paths>
+		</build>
+	</target>
+
+	<target name="build-appl" depends="build-mod">
+		<build name="appl">
+			<paths>
+				<modulepath location="${shared}/build/util.jar" />
+				<modulepath location="${basedir}/build/mod.jar" />
+			</paths>
+		</build>
+	</target>
+
+	<target name="run" depends="build-appl">
+		<java module="jj.appl" classname="jj.appl.Application" fork="true">
+			<modulepath location="${shared}/build/util.jar" />
+			<modulepath location="${basedir}/build/mod.jar" />
+			<modulepath location="${basedir}/build/appl.jar" />
+		</java>
+	</target>
+
+</project>

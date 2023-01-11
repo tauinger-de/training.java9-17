@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE project>
+
+<project default="run">
+
+	<import file="../shared/build.xml" />
+
+	<target name="build-simple-jar">
+		<build name="simple-jar">
+			<paths>
+			</paths>
+		</build>
+	</target>
+
+	<target name="build-modular-jar">
+		<build name="modular-jar">
+			<paths>
+			</paths>
+		</build>
+	</target>
+
+	<target name="runSimpleJarOnCP" depends="build-simple-jar">
+		<java classname="appl.Application" fork="true">
+			<classpath location="${basedir}/build/simple-jar.jar" />
+		</java>
+	</target>
+	
+	<target name="runSimpleJarOnMP" depends="build-simple-jar">
+		<java module="simple.jar" classname="appl.Application" fork="true">  <!-- "simple.jar": automatic module name -->
+			<modulepath location="${basedir}/build/simple-jar.jar" />
+		</java>
+	</target>
+
+	<target name="runModularJarOnCP" depends="build-modular-jar">
+		<java classname="appl.Application" fork="true">
+			<classpath location="${basedir}/build/modular-jar.jar" />
+		</java>
+	</target>
+	
+	<target name="runModularJarOnMP" depends="build-modular-jar">
+		<java module="mod" classname="appl.Application" fork="true">  <!-- "mod": named module name -->
+			<modulepath location="${basedir}/build/modular-jar.jar" />
+		</java>
+	</target>
+
+	<target name="run" depends="runSimpleJarOnCP, runSimpleJarOnMP, runModularJarOnCP, runModularJarOnMP"/>
+	
+</project>

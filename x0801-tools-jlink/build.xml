@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE project>
+
+<project default="run">
+
+	<import file="../shared/build.xml" />
+
+	<property name="appl" value="${basedir}-appl" />
+	<property name="mod" value="${basedir}-mod" />
+	
+	<property name="image" value="${basedir}/image"/>
+
+	<target name="clean">
+		<delete dir="${mod}/build" />
+		<delete dir="${appl}/build" />
+		<mkdir dir="${mod}/build" />
+		<mkdir dir="${appl}/build" />
+		<delete file="${basedir}/appl.jar" />
+		<delete file="${basedir}/mod.jar" />
+		<delete dir="${image}" />
+	</target>
+
+	<target name="build-mod">
+		<echo message="building ${mod}" />
+		<exec executable="${javac}">
+			<arg value="-d" />
+			<arg value="${mod}/build" />
+			<arg value="${mod}/src/module-info.java" />
+			<arg value="${mod}/src/jj/mod/pri/*.java" />
+			<arg value="${mod}/src/jj/mod/pub/*.java" />
+		</exec>
+		<exec executable="${jar}">
+			<arg value="--create" />
+			<arg value="--file=${basedir}/mod.jar" />
+			<arg value="--module-version=1.0" />
+			<arg value="-C" />
+			<arg value="${mod}/build" />
+			<arg value="." />
+		</exec>
+	</target>
+
+	<target name="build-appl">
+		<echo message="building ${appl}" />
+		<exec executable="${javac}">
+			<arg value="--module-path" />
+			<arg value="${mod}/build" />
+			<arg value="-d" />
+			<arg value="${appl}/build" />
+			<arg value="${appl}/src/module-info.java" />
+			<arg value="${appl}/src/jj/appl/*.java" />
+		</exec>
+		<exec executable="${jar}">
+			<arg value="--create" />
+			<arg value="--file=${basedir}/appl.jar" />
+			<arg value="--module-version=1.0" />
+			<arg value="-C" />
+			<arg value="${appl}/build" />
+			<arg value="." />
+		</exec>
+	</target>
+
+	<target name="jlink">
+		<echo message="jlink ${image}" />
+		<exec executable="${jlink}">
+			<arg value="--output" />
+			<arg value="${image}" />
+			<arg value="--module-path" />
+			<arg value="${jdk}/jmods;${basedir}" />
+			<arg value="--add-modules" />
+			<arg value="java.base,jj.appl" />
+			<arg value="--compress=2"/>
+			<arg value="--launcher"/>
+			<arg value="jj=jj.appl/jj.appl.Application"/>
+		</exec>
+	</target>
+
+	<target name="listModules">
+		<exec executable="${image}/bin/java">
+			<arg value="--list-modules" />
+			<arg value="--module-path" />
+			<arg value="${image}" />
+		</exec>
+	</target>
+
+	<target name="run" depends="clean, build-mod, build-appl, jlink, listModules">
+		<exec executable="${image}/bin/java">
+			<arg value="-m" />
+			<arg value="jj.appl/jj.appl.Application" />
+		</exec>
+
+	</target>
+
+</project>

@@ -1,0 +1,1 @@
+java --module-path ..\x9901-MathService\target\MathService-0.0.1-SNAPSHOT.jar;target\MathServiceAppl-0.0.1-SNAPSHOT.jar --module jj.mathServiceAppl/jj.mathServiceAppl.Application 

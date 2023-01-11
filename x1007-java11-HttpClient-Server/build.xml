@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE project>
+
+<project default="deploy">
+	
+	<property name="tomcat" value ="${basedir}\..\dependencies\apache-tomcat-9.0.17"/>
+	<property name="webcontent" value ="${basedir}\webcontent"/>
+	<property name="web-inf" value ="${webcontent}/WEB-INF"/>
+	
+	<target name="deploy" >
+		<delete dir="${webcontent}"/>
+		<mkdir dir="${web-inf}/classes"/>
+		<javac srcdir="${basedir}/src" destdir="${web-inf}/classes" includeantruntime="true" debug="true" fork="false">
+			<classpath path="${tomcat}/lib/servlet-api.jar" />
+			<compilerarg value="-nowarn" />
+		</javac>
+		<copy file="${basedir}/src/web.xml" todir="${web-inf}"/>
+		<war destfile="${tomcat}/webapps/math.war">
+			<fileset dir="${webcontent}" />
+		</war>
+		<delete dir="${webcontent}"/>
+	</target>
+
+</project>

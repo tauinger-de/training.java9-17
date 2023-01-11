@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE project>
+
+<project default="usage">
+
+	<import file="../shared/build.xml" />
+
+	<target name="usage">
+		<echo message="please use distinct targets: Run As Ant Build..." />
+	</target>
+
+	<target name="1" description="build simple.mod">
+		<build name="simple-mod">
+			<paths>
+			</paths>
+		</build>
+	</target>
+
+	<target name="2" description="build modular.mod">
+		<build name="modular-mod">
+			<paths>
+			</paths>
+		</build>
+	</target>
+
+	<target name="3a" description="build simple.appl with simple.mod via CP - succeeds">
+		<build name="simple-appl">
+			<paths>
+				<classpath location="${basedir}/build/simple-mod.jar" />
+			</paths>
+		</build>
+	</target>
+
+	<target name="3b" description="build simple.appl with simple.mod via MP - fails">
+		<build name="simple-appl">
+			<paths>
+				<modulepath location="${basedir}/build/simple-mod.jar" />
+			</paths>
+		</build>
+	</target>
+
+	<target name="4a" description="build simple.appl with modular.mod via CP - succeeds">
+		<build name="simple-appl">
+			<paths>
+				<classpath location="${basedir}/build/modular-mod.jar" />
+			</paths>
+		</build>
+	</target>
+
+	<target name="4b" description="build simple.appl with modular.mod via MP - fails">
+		<build name="simple-appl">
+			<paths>
+				<modulepath location="${basedir}/build/modular-mod.jar" />
+			</paths>
+		</build>
+	</target>
+	
+	<target name="5a" description="build modular.appl with simple.mod via CP - fails">
+		<build name="modular-appl">
+			<paths>
+				<classpath location="${basedir}/build/simple-mod.jar" />
+			</paths>
+		</build>
+	</target>
+
+	<target name="5b" description="build modular.appl with simple.mod via MP - succeeds">
+		<!-- !! change module-info of modular-appl -> automatic module name !! -->
+		
+		<build name="modular-appl">
+			<paths>
+				<modulepath location="${basedir}/build/simple-mod.jar" />
+			</paths>
+		</build>
+	</target>
+
+	<target name="6a" description="build modular.appl with modular.mod via CP - fails">
+		<build name="modular-appl">
+			<paths>
+				<classpath location="${basedir}/build/modular-mod.jar" />
+			</paths>
+		</build>
+	</target>
+
+	<target name="6b" description="build modular.appl with modular.mod via MP - succeeds">
+		<build name="modular-appl">
+			<paths>
+				<modulepath location="${basedir}/build/modular-mod.jar" />
+			</paths>
+		</build>
+	</target>
+
+</project>

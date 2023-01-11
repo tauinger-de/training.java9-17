@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE project>
+
+<project default="run">
+
+	<import file="../shared/build.xml" />
+
+	<property name="shared" value="${basedir}/../shared" />
+
+	<target name="build-mod">
+		<build name="mod">
+		</build>
+	</target>
+
+	<target name="build-operators">
+		<build name="operators">
+			<prepare>
+				<copy 
+					file="${basedir}-operators/src/META-INF/services/jj.operators.iface.Operator" 
+					tofile ="${basedir}-operators/tmp/META-INF/services/jj.operators.iface.Operator"/>
+			</prepare>
+			<paths>
+				<classpath location="${basedir}/build/mod.jar" />
+			</paths>
+		</build>
+	</target>
+
+	<target name="build-appl" depends="build-mod, build-operators">
+		<build name="appl">
+			<paths>
+				<classpath location="${shared}/build/util.jar" />
+				<classpath location="${basedir}/build/mod.jar" />
+			</paths>
+		</build>
+	</target>
+
+	<target name="run" depends="build-appl">
+		<java classname="jj.appl.Application" fork="true">
+			<classpath location="${shared}/build/util.jar" />
+			<classpath location="${basedir}/build/mod.jar" />
+			<classpath location="${basedir}/build/operators.jar" />
+			<classpath location="${basedir}/build/appl.jar" />
+		</java>
+	</target>
+
+</project>

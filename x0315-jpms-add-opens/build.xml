@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE project>
+
+<project default="run">
+
+	<import file="../shared/build.xml" />
+
+	<target name="build-mod">
+		<build name="mod">
+			<paths>
+			</paths>
+		</build>
+	</target>
+
+	<target name="build-appl" depends="build-mod">
+		<build name="appl">
+			<paths>
+				<modulepath location="${shared}/build/util.jar" />
+				<modulepath location="${basedir}/build/mod.jar" />
+			</paths>
+		</build>
+	</target>
+
+	<target name="run" depends="build-appl">
+		<java module="jj.appl" classname="jj.appl.Application" fork="true">
+			<jvmarg value="--add-opens" />
+			<jvmarg value="jj.appl/jj.domain=jj.reflection" />
+			<modulepath location="${shared}/build/util.jar" />
+			<modulepath location="${basedir}/build/mod.jar" />
+			<modulepath location="${basedir}/build/appl.jar" />
+		</java>
+	</target>
+
+	<target name="jdeps">
+		<exec executable="jdeps">
+			<!--
+			<arg value="-R" />
+			<arg value="- -generate-module-info"/>  
+			<arg value="${basedir}/infos"/>
+			-->
+			<arg value="--module-path" />
+
+			<arg value="${shared}/build/util.jar" />
+			<arg value="${basedir}/build/*.jar" />
+
+			
+		</exec>
+	</target>
+
+</project>

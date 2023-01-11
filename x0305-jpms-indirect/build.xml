@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE project>
+
+<project default="run">
+
+	<import file="../shared/build.xml" />
+
+	<target name="build-modB">
+		<build name="modB">
+			<paths>
+				<modulepath location="${shared}/build/util.jar" />
+			</paths>
+		</build>
+	</target>
+
+	<target name="build-modA" depends="build-modB">
+		<build name="modA">
+			<paths>
+				<modulepath location="${shared}/build/util.jar" />
+				<modulepath location="${basedir}/build/modB.jar" />
+			</paths>
+		</build>
+	</target>
+
+	<target name="build-appl" depends="build-modA">
+		<build name="appl">
+			<paths>
+				<modulepath location="${shared}/build/util.jar" />
+				<modulepath location="${basedir}/build/modA.jar" />
+			</paths>
+		</build>
+	</target>
+
+	<target name="run" depends="build-appl">
+		<java module="jj.appl" classname="jj.appl.Application" fork="true">
+			<modulepath location="${shared}/build/util.jar" />
+			<modulepath location="${basedir}/build/modA.jar" />
+			<modulepath location="${basedir}/build/modB.jar" />
+			<modulepath location="${basedir}/build/appl.jar" />
+		</java>
+	</target>
+
+	<target name="jdeps">
+		<exec executable="jdeps">
+			<!--
+			<arg value="-R" />
+			-->
+			<arg value="--module-path" />
+			<arg value="${shared}/build/util.jar" />
+			<arg value="${basedir}/build/*.jar" />
+		</exec>
+	</target>
+
+</project>

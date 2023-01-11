@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE project>
+
+<project default="run">
+
+	<import file="../shared/build.xml" />
+
+	<target name="build-mod">
+		<build name="mod">
+			<paths>
+			</paths>
+		</build>
+	</target>
+
+	<target name="build-appl" depends="build-mod">
+		<build name="appl">
+			<paths>
+				<compilerarg value="--add-exports=jj.mod/jj.mod.beta=jj.appl"/>
+				<modulepath location="${shared}/build/util.jar" />
+				<modulepath location="${basedir}/build/mod.jar" />
+			</paths>
+		</build>
+	</target>
+
+	<target name="run" depends="build-appl">
+		<java module="jj.appl" classname="jj.appl.Application" fork="true">
+			<jvmarg value="--add-exports" />
+			<jvmarg value="jj.mod/jj.mod.beta=jj.appl" />
+			<modulepath location="${shared}/build/util.jar" />
+			<modulepath location="${basedir}/build/appl.jar" />
+			<modulepath location="${basedir}/build/mod.jar" />
+		</java>
+	</target>
+
+</project>

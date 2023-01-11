@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE project>
+
+<project default="run">
+
+	<import file="../shared/build.xml" />
+
+	<property name="shared" value="${basedir}/../shared" />
+
+	<target name="build-mod-A-X" >
+		<build name="mod-A-X">
+			<paths>
+			</paths>
+		</build>
+	</target>
+
+	<target name="build-mod-B-Y">
+		<build name="mod-B-Y">
+			<prepare>
+				<copy 
+					file="${basedir}-mod-B-Y/src/META-INF/MANIFEST.MF" 
+					tofile ="${basedir}-mod-B-Y/tmp/META-INF/MANIFEST.MF"/>
+			</prepare>
+			<paths>
+			</paths>
+		</build>
+	</target>
+
+
+	<target name="build-appl" depends="build-mod-A-X,build-mod-B-Y">
+		<build name="appl">
+			<paths>
+				<modulepath location="${shared}/build/util.jar" />
+				<modulepath location="${basedir}/build/mod-A-X.jar" />
+				<modulepath location="${basedir}/build/mod-B-Y.jar" />
+			</paths>
+		</build>
+	</target>
+
+	<target name="run" depends="build-appl">
+		<java module="jj.appl" classname="jj.appl.Application" fork="true">
+			<modulepath location="${shared}/build/util.jar" />
+			<modulepath location="${basedir}/build/mod-A-X.jar" />
+			<modulepath location="${basedir}/build/mod-B-Y.jar" />
+			<modulepath location="${basedir}/build/appl.jar" />
+		</java>
+	</target>
+
+	<target name="jdeps">
+		<exec executable="jdeps">
+			<!--
+			<arg value="-R" />
+			-->
+			<arg value="--module-path" />
+			<arg value="${shared}/build/util.jar" />
+			<arg value="${basedir}/build/*.jar" />
+		</exec>
+	</target>
+
+</project>

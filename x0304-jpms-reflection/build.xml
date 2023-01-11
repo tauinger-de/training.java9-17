@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE project>
+
+<project default="run">
+
+	<import file="../shared/build.xml" />
+
+	<property name="shared" value="${basedir}/../shared" />
+
+	<target name="build-mod">
+		<build name="mod">
+			<paths>
+			</paths>
+		</build>
+	</target>
+
+	<target name="build-appl" depends="build-mod">
+		<build name="appl">
+			<paths>
+				<modulepath location="${shared}/build/util.jar" />
+				<modulepath location="${basedir}/build/mod.jar" />
+			</paths>
+		</build>
+	</target>
+
+	<target name="run" depends="build-appl">
+		<java module="jj.appl" classname="jj.appl.Application" fork="true">
+			<modulepath location="${shared}/build/util.jar" />
+			<modulepath location="${basedir}/build/mod.jar" />
+			<modulepath location="${basedir}/build/appl.jar" />
+		</java>
+	</target>
+
+	<target name="jdeps">
+		<exec executable="jdeps">
+			<!--
+			<arg value="-R" />
+			<arg value="- -generate-module-info"/>  
+			<arg value="${basedir}/infos"/>
+			-->
+			<arg value="--module-path" />
+
+			<arg value="${shared}/build/util.jar" />
+			<arg value="${basedir}/build/*.jar" />
+			
+		</exec>
+	</target>
+
+	<target name="raw">
+
+		<mkdir dir="${basedir}-mod/tmp"/>
+		<mkdir dir="${basedir}-appl/tmp"/>
+		
+		<!-- Compile mod -->
+		<exec executable="javac">
+			<arg value="-d"/>
+			<arg value="${basedir}-mod/tmp"/>
+			<arg value="${basedir}-mod/src/module-info.java"/>
+			<arg value="${basedir}-mod/src/jj/reflection/Mapper.java"/>
+		</exec>		
+		
+		<!-- Jar mod -->
+		<exec executable="jar">
+			<arg value="--create"/>
+			<arg value="--file"/>
+			<arg value="${basedir}/build/mod.jar"/>
+			<arg value="-C"/>
+			<arg value="${basedir}-mod/tmp"/>
+			<arg value="."/>
+		</exec>
+
+		<!-- Compile appl -->
+		<exec executable="javac">
+			<arg value="--module-path"/>
+			<arg value="${basedir}/build/mod.jar;${shared}/build/util.jar"/>
+			<arg value="-d"/>
+			<arg value="${basedir}-appl/tmp"/>
+			<arg value="${basedir}-appl/src/module-info.java"/>
+			<arg value="${basedir}-appl/src/jj/appl/Application.java"/>
+			<arg value="${basedir}-appl/src/jj/domain/Book.java"/>
+		</exec>		
+	
+		<!-- Jar appl -->
+		<exec executable="jar">
+			<arg value="--create"/>
+			<arg value="--file"/>
+			<arg value="${basedir}/build/appl.jar"/>
+			<arg value="-C"/>
+			<arg value="${basedir}-appl/tmp"/>
+			<arg value="."/>
+		</exec>
+
+		<!-- Java -->
+		<exec executable="java">
+			<arg value="--module-path"/>
+			<arg value="${basedir}/build/appl.jar;${basedir}/build/mod.jar;${shared}/build/util.jar"/>
+			<arg value="--module"/>
+			<arg value="jj.appl/jj.appl.Application"/>
+		</exec>
+			
+		<delete dir="${basedir}-mod/tmp"/>
+		<delete dir="${basedir}-appl/tmp"/>
+	</target>
+
+</project>

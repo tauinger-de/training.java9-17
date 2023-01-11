@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE project>
+
+<project default="run">
+
+	<import file="../shared/build.xml" />
+
+	<property name="appl" value="${basedir}-appl" />
+	<property name="mod" value="${basedir}-mod" />
+	
+	<target name="clean">
+		<delete dir="${mod}/build" />
+		<delete dir="${appl}/build" />
+		<mkdir dir="${mod}/build" />
+		<mkdir dir="${appl}/build" />
+	</target>
+
+	<target name="build-mod">
+		<echo message="building ${mod}" />
+		<exec executable="${javac}">
+			<arg value="-d" />
+			<arg value="${mod}/build" />
+			<arg value="${mod}/src/module-info.java" />
+			<arg value="${mod}/src/jj/mod/pri/*.java" />
+			<arg value="${mod}/src/jj/mod/pub/*.java" />
+		</exec>
+	</target>
+
+	<target name="build-appl">
+		<echo message="building ${appl}" />
+		<exec executable="${javac}">
+			<arg value="--module-path" />
+			<arg value="${mod}/build" />
+			<arg value="-d" />
+			<arg value="${appl}/build" />
+			<arg value="${appl}/src/module-info.java" />
+			<arg value="${appl}/src/jj/appl/*.java" />
+		</exec>
+	</target>
+
+	<target name="jdeps">
+		<echo message="jdeps ${appl}" />
+		<echo message="============= mod =============" />
+		<exec executable="${jdeps}">
+			<arg value="${mod}/build" />
+		</exec>
+		<echo message="============= appl ============" />
+		
+		<exec executable="${jdeps}">
+			<!--
+			<arg value="-R" />
+			-->
+			<arg value="--module-path" />
+			<arg value="${mod}/build" />
+			<arg value="${appl}/build" />
+		</exec>
+
+	</target>
+
+
+	<target name="run" depends="clean, build-mod, build-appl, jdeps">
+		<echo message="Running:" />
+		<exec executable="${java}">
+			<arg value="--module-path" />
+			<arg value="${mod}/build;${appl}/build" />
+			<arg value="-m" />
+			<arg value="jj.appl/jj.appl.Application" />
+		</exec>
+
+	</target>
+
+</project>

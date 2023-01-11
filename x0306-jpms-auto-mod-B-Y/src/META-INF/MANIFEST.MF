@@ -1,0 +1,2 @@
+This-is-a-comment: META-INF/MANIFEST.MF
+Automatic-Module-Name: mod.BB.YY
