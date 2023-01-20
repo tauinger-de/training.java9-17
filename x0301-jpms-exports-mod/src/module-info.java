@@ -1,4 +1,4 @@
 module jj.mod {
-	requires java.base; // default
-	exports jj.mod.alpha;
+    requires java.base; // default
+    exports jj.mod.alpha;
 }

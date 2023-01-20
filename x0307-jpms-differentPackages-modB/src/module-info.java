@@ -1,3 +1,3 @@
 module jj.modB {
-	exports jj.mod;
+    exports jj.mod;
 }

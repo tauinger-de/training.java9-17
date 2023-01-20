@@ -1,4 +1,4 @@
 module jj.appl {
-	requires jj.util;
-	requires jj.services;
+    requires jj.util;
+    requires jj.services;
 }

@@ -1,29 +1,22 @@
 package appl;
 
-import java.lang.invoke.CallSite;
-import java.lang.invoke.ConstantCallSite;
-import java.lang.invoke.MethodHandle;
-import java.lang.invoke.MethodHandles;
-import java.lang.invoke.MethodType;
-import java.util.HashMap;
-import java.util.Map;
-
 public class Foo {
 
-	public static void alpha1() {
-		System.out.println("alpha1()");
-	}
-	public static void alpha2() {
-		System.out.println("alpha2()");
-	}
+    public static void alpha1() {
+        System.out.println("alpha1()");
+    }
 
-	public static void beta(int i) {
-		System.out.println("beta(" + i + ")");
-	}
+    public static void alpha2() {
+        System.out.println("alpha2()");
+    }
 
-	public static void gamma(int i1, int i2) {
-		System.out.println("gamma(" + i1 + ", " + i2 + ")");
-	}
+    public static void beta(int i) {
+        System.out.println("beta(" + i + ")");
+    }
+
+    public static void gamma(int i1, int i2) {
+        System.out.println("gamma(" + i1 + ", " + i2 + ")");
+    }
 
 //	private static CallSite callSiteAlpha = null;
 //	public static CallSite bootstrapAlpha(MethodHandles.Lookup caller, String name, MethodType type) throws Exception {

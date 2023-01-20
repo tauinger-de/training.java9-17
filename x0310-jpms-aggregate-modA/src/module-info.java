@@ -1,3 +1,3 @@
 module jj.modA {
-	exports jj.modA.alpha;
+    exports jj.modA.alpha;
 }

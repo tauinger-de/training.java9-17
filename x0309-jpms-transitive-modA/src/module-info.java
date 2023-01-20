@@ -1,4 +1,4 @@
 module jj.modA {
-	requires transitive jj.modB;
-	exports jj.modA.alpha;
+    requires transitive jj.modB;
+    exports jj.modA.alpha;
 }

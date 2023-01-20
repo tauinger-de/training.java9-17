@@ -4,6 +4,6 @@ import jj.modB.beta.Beta;
 import jj.modB.gamma.Gamma;
 
 public class Alpha {
-	Beta beta;
-	Gamma gamma;
+    Beta beta;
+    Gamma gamma;
 }

@@ -1,13 +1,12 @@
 package jj.appl;
 
-import static java.util.Map.entry;
+import jj.util.log.Log;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import jj.util.log.Log;
+import static java.util.Map.entry;
 
 public class Application {
 

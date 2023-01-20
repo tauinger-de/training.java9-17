@@ -1,54 +1,54 @@
 package jj.domain;
 
 public class Book {
-	
-	private String isbn;
-	private String title;
-	private int year;
-	private String author;
 
-	public Book(String isbn, String title, int year, String author) {
-		this.isbn = isbn;
-		this.title = title;
-		this.year = year;
-		this.author = author;
-	}
+    private String isbn;
+    private String title;
+    private int year;
+    private String author;
 
-	public String getIsbn() {
-		return isbn;
-	}
+    public Book(String isbn, String title, int year, String author) {
+        this.isbn = isbn;
+        this.title = title;
+        this.year = year;
+        this.author = author;
+    }
 
-	public void setIsbn(String isbn) {
-		this.isbn = isbn;
-	}
+    public String getIsbn() {
+        return isbn;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public int getYear() {
-		return year;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public void setYear(int year) {
-		this.year = year;
-	}
+    public int getYear() {
+        return year;
+    }
 
-	public String getAuthor() {
-		return author;
-	}
+    public void setYear(int year) {
+        this.year = year;
+    }
 
-	public void setAuthor(String author) {
-		this.author = author;
-	}
+    public String getAuthor() {
+        return author;
+    }
 
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + " [" + isbn + ", " + title + ", " + year + ", " + author + "]";
-	}
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + " [" + isbn + ", " + title + ", " + year + ", " + author + "]";
+    }
 
 }

@@ -5,8 +5,8 @@ import jj.modB.beta.Beta;
 
 public class Application {
 
-	public static void main(String[] args) {
-		Alpha alpha;
-		Beta beta;
-	}
+    public static void main(String[] args) {
+        Alpha alpha;
+        Beta beta;
+    }
 }

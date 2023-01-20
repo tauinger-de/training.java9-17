@@ -1,11 +1,11 @@
 package jj.appl;
 
+import jj.util.log.Log;
+
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import jj.util.log.Log;
 
 public class Application {
 
@@ -40,9 +40,9 @@ public class Application {
         Optional<String> command = info.command();
         return command.filter(s -> s.contains("java") || s.contains("eclipse")).isPresent();
 
-        public Stream<T> stream()
-        public Optional<T> or(Supplier<? extends Optional<? extends T>> supplier)
-        public void ifPresentOrElse(Consumer<? super T> action, Runnable emptyAction)
+        public Stream<T> stream ()
+        public Optional<T> or (Supplier < ? extends Optional<? extends T>>supplier)
+        public void ifPresentOrElse (Consumer < ? super T > action, Runnable emptyAction)
 
     }
 

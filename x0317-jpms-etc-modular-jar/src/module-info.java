@@ -1,3 +1,3 @@
 module mod {
-	requires java.sql;
+    requires java.sql;
 }

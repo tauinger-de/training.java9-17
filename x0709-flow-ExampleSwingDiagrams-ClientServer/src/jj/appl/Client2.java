@@ -1,9 +1,9 @@
 package jj.appl;
 
-import java.awt.Color;
+import java.awt.*;
 
 public class Client2 {
-	public static void main(String[] args) throws Exception {
-		new Client().run(Client2.class.getSimpleName(), 700, 100, Color.blue, 50, 80);
-	}	
+    public static void main(String[] args) throws Exception {
+        new Client().run(Client2.class.getSimpleName(), 700, 100, Color.blue, 50, 80);
+    }
 }
