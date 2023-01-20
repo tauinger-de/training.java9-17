@@ -7,5 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="x0201-problems-classpath-modA" />
+    <orderEntry type="module" module-name="x0201-problems-classpath-modB" />
   </component>
 </module>
