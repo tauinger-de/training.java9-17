@@ -44,6 +44,9 @@ public class Application {
 
 		Optional<String> str2 = Optional.ofNullable("World").or(() -> Optional.of("Hello"));
 		System.out.println(str2);
+
+		var emptyOrEmpty = Optional.empty().or(Optional::empty);
+		System.out.println(emptyOrEmpty.isPresent());
 	}	
 
 	static void demoIfPresentOrElse() {

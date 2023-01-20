@@ -28,7 +28,7 @@ public class Application {
 		Logger logger = System.getLogger("VerboseLogger");
 		System.out.println(logger.getName());
 		logger.log(Level.ERROR, "Water in drive A:");
-		logger.log(Level.INFO, "Nice day");	
+		logger.log(Level.INFO, "Nice day");
 	}
 	
 	static void demoServiceLoader() {
