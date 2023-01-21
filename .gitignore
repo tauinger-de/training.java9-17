@@ -2,8 +2,6 @@
 
 /.metadata/
 /.recommenders/
-**/.project
-**/.classpath
 **/.settings/
 
 **/build/
