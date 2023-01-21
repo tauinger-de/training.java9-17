@@ -15,11 +15,8 @@ public class Application {
 
     static void demoSubmit() {
         Log.logMethodCall();
-        //SubmissionPublisher<Message> publisher = new SubmissionPublisher<>();
         SubmissionPublisher<Message> publisher =
                 new SubmissionPublisher<>(ForkJoinPool.commonPool(), 1);
-        // SubmissionPublisher<Message> publisher =
-        // 		new SubmissionPublisher<>(Executors.newFixedThreadPool(4));
 
         Log.tlog("MaxBufferCapacity : " + publisher.getMaxBufferCapacity());
         SimpleSubscriber<Message> subscriber = new SimpleSubscriber<>();
@@ -28,7 +25,7 @@ public class Application {
         for (int i = 1000; i < 1010; i++) {
             Message message = new Message(i);
             Log.tlog("submit(" + message + ")");
-            publisher.submit(new Message(i));
+            publisher.submit(message);
         }
 
         publisher.close();
@@ -37,7 +34,6 @@ public class Application {
 
     static void demoOffer() {
         Log.logMethodCall();
-        // SubmissionPublisher<Message> publisher = new SubmissionPublisher<>();
         SubmissionPublisher<Message> publisher = new SubmissionPublisher<>(
                 ForkJoinPool.commonPool(), 1);
         Log.tlog("MaxBufferCapacity : " + publisher.getMaxBufferCapacity());
@@ -47,14 +43,11 @@ public class Application {
         for (int i = 1000; i < 1020; i++) {
             XRunnable.xrun(() -> Thread.sleep(50));
             Message message = new Message(i);
-            Log.tlog("publish(" + message + ")");
+            Log.tlog("offer(" + message + ")");
             publisher.offer(message, null);
-            // publisher.offer(nessage, (x, y) -> true);
-            // publisher.offer(nessage, 0, TimeUnit.MILLISECONDS, (x, y) -> true);
         }
 
         publisher.close();
         XRunnable.xrun(() -> Thread.sleep(2000));
-
     }
 }
