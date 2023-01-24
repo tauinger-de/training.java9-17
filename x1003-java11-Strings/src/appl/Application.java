@@ -24,11 +24,14 @@ public class Application {
 
     static void demoStrip() {
         Log.logMethodCall();
-        // Impl von trim etwas anders als die von strip...
-        System.out.println("'" + "  Hello  ".trim() + "'");
-        System.out.println("'" + "  Hello  ".strip() + "'");
-        System.out.println("'" + "  Hello  ".stripLeading() + "'");
-        System.out.println("'" + "  Hello  ".stripTrailing() + "'");
+
+        // trim() removes all characters <= 0x20 but not modern Unicode chars like \u2000
+        var text = "\t Hello\u2000 \n\r";
+        System.out.printf("'%s'\n", text.trim());
+
+        System.out.printf("'%s'\n", text.strip());
+        System.out.printf("'%s'\n", text.stripLeading());
+        System.out.printf("'%s'\n", text.stripTrailing());
     }
 
     static void demoLines() {

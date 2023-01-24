@@ -2,40 +2,31 @@ package appl;
 
 import jj.util.log.Log;
 
-import java.io.IOException;
 import java.util.function.Predicate;
 
 import static java.util.function.Predicate.not;
 
 public class Application {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         demoOld();
         demoNew();
     }
 
     static void demoOld() {
         Log.logMethodCall();
-        final Predicate<String> isEmpty = s -> s.isEmpty();  // Variable erforderlich
+        final Predicate<String> isEmpty = String::isEmpty; // only required for negating in next line
         final Predicate<String> isNotEmpty = isEmpty.negate();
 
-        System.out.println(isEmpty.test("Hello"));
         System.out.println(isNotEmpty.test("Hello"));
-        System.out.println(isEmpty.test(""));
         System.out.println(isNotEmpty.test(""));
     }
 
     static void demoNew() {
         Log.logMethodCall();
-        final Predicate<String> isEmpty = s -> s.isEmpty();
-        // final Predicate<String> isNotEmpty = Predicate.not(isEmpty);
-        final Predicate<String> isNotEmpty = not(isEmpty);
+        final Predicate<String> isNotEmpty = Predicate.not(String::isEmpty);
 
-        final Predicate<String> isNotEmpty2 = not(s -> s.isEmpty());
-
-        System.out.println(isEmpty.test("Hello"));
         System.out.println(isNotEmpty.test("Hello"));
-        System.out.println(isEmpty.test(""));
         System.out.println(isNotEmpty.test(""));
     }
 }

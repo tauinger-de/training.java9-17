@@ -1,7 +1,7 @@
 package appl;
 
-@SuppressWarnings("preview")
 public record Rational(int x, int y) {
+
     public Rational {
         int gcd = gcd(x, y);
         x = x / gcd;

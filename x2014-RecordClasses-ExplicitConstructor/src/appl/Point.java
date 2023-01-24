@@ -1,6 +1,5 @@
 package appl;
 
-@SuppressWarnings("preview")
 public record Point(double x, double y) {
     public Point(double x, double y) {
         if (x < 0 || y < 0)
@@ -9,6 +8,4 @@ public record Point(double x, double y) {
         this.y = y;
     }
 }
-
-// records are final
 

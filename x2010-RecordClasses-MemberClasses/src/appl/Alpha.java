@@ -1,6 +1,5 @@
 package appl;
 
-@SuppressWarnings("preview")
 public record Alpha(int a) {
 
     public void work() {
@@ -14,28 +13,24 @@ public record Alpha(int a) {
     public static class CBeta {
         public CBeta() {
             System.out.println("CBeta");
-            // System.out.println(Alpha.this.a);
         }
     }
 
     public static record RBeta() {
         public RBeta {
             System.out.println("RBeta");
-            // System.out.println(Alpha.this.a);
         }
     }
 
     public class CGamma {
         public CGamma() {
             System.out.println("CGamma");
-            System.out.println(Alpha.this.a);
         }
     }
 
     public record RGamma() {
         public RGamma {
             System.out.println("RGamma");
-            // System.out.println(Alpha.this.a);
         }
     }
 }

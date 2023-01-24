@@ -4,14 +4,12 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@SuppressWarnings("preview")
 public class Application {
     public static void main(String[] args) {
         final List<Point> points = List.of(new Point(10, 20), new Point(1, 2), new Point(5, 5));
         final List<Point> sortedPoints = sort(points);
         sortedPoints.forEach(System.out::println);
     }
-
     static List<Point> sort(List<Point> points) {
         record PointWithSize(Point point, double size) {
             public PointWithSize(Point p) {

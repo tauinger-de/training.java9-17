@@ -2,8 +2,8 @@ package appl;
 
 import java.io.Serializable;
 
-@SuppressWarnings("preview")
 public record Point(double x, double y) implements Serializable, Comparable<Point> {
+
     public Point {
         System.out.println("==> " + x + " " + y);
         if (x < 0 || y < 0)
@@ -24,10 +24,6 @@ public record Point(double x, double y) implements Serializable, Comparable<Poin
 
     @Override
     public int compareTo(Point other) {
-        if (this.size() > other.size())
-            return 1;
-        if (this.size() < other.size())
-            return -1;
-        return 0;
+        return Double.compare(this.size(), other.size());
     }
 }

@@ -1,7 +1,7 @@
 package appl;
 
-@SuppressWarnings("preview")
 public record Alpha(int a) {
+
     public void work() {
         System.out.println(a);
 

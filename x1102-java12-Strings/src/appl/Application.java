@@ -2,26 +2,24 @@ package appl;
 
 import jj.util.log.Log;
 
+import java.time.LocalDate;
+
 public class Application {
     public static void main(String[] args) {
-        demo1();
-        demo2();
+        demoIndent();
+        demoTransform();
     }
 
-    static void demo1() {
+    static void demoIndent() {
         Log.logMethodCall();
-        String s1 = "Hello";
-        String s2 = s1.indent(8);
-        System.out.println(s1);
-        System.out.println(s2);
+        System.out.print("  Meine Reiseziele:".indent(-2)); // kein println sondern print!
+        System.out.print("NewYork\nRio\nTokio".indent(4));
     }
 
-    static void demo2() {
+    static void demoTransform() {
         Log.logMethodCall();
-        String s = "3.14";
-        double d1 = s.transform(str -> Double.parseDouble(str));
-        System.out.println(d1);
-        double d2 = s.transform(Double::parseDouble);
-        System.out.println(d1);
+        String s = "3.14159264358979323846";
+        double pi = s.transform(Double::parseDouble);
+        System.out.println(pi);
     }
 }
